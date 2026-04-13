@@ -1,0 +1,1740 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AI-Powered Partnerships — Ashish Saraf</title>
+<meta name="description" content="13 AI automations that replaced 40+ hours of manual partnerships work per week — built with Claude Code, HubSpot APIs, and 8+ MCP integrations.">
+<meta property="og:title" content="I replaced 40 hours of manual work with 13 AI automations">
+<meta property="og:description" content="From 45-minute partner profiles to 2-minute automated workflows. Built with Claude Code, HubSpot APIs, and MCP integrations.">
+<meta property="og:type" content="website">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="AI-Powered Partnerships — Ashish Saraf">
+<meta name="twitter:description" content="13 AI skills automating CRM, partner intel, email drafting, and batch enrichment.">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>⚡</text></svg>">
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;500;600&family=Sora:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg: #0a0a0f;
+  --bg2: #111118;
+  --bg3: #1a1a24;
+  --surface: #16161f;
+  --border: #2a2a3a;
+  --text: #e4e4ef;
+  --text-dim: #8888a0;
+  --accent: #5eead4;
+  --accent2: #818cf8;
+  --accent3: #f472b6;
+  --accent4: #fb923c;
+  --accent5: #a78bfa;
+  --green: #34d399;
+  --yellow: #fbbf24;
+  --red: #f87171;
+  --code-bg: #0d0d14;
+  --mono: 'JetBrains Mono', monospace;
+  --sans: 'Sora', sans-serif;
+}
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: var(--sans);
+  line-height: 1.6;
+  overflow-x: hidden;
+}
+::selection { background: var(--accent); color: var(--bg); }
+a { color: var(--accent); text-decoration: none; }
+a:hover { text-decoration: underline; }
+
+/* ── HERO ── */
+.hero {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 60px clamp(24px, 6vw, 120px);
+  position: relative;
+  overflow: hidden;
+}
+.hero::before {
+  content: '';
+  position: absolute;
+  top: -200px; right: -200px;
+  width: 600px; height: 600px;
+  background: radial-gradient(circle, rgba(94,234,212,.08) 0%, transparent 70%);
+  pointer-events: none;
+}
+.hero::after {
+  content: '';
+  position: absolute;
+  bottom: -100px; left: -100px;
+  width: 400px; height: 400px;
+  background: radial-gradient(circle, rgba(129,140,248,.06) 0%, transparent 70%);
+  pointer-events: none;
+}
+.hero-label {
+  font-family: var(--mono);
+  font-size: 13px;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  color: var(--accent);
+  margin-bottom: 24px;
+  opacity: 0;
+  animation: fadeUp .8s ease forwards;
+}
+.hero h1 {
+  font-size: clamp(36px, 5.5vw, 72px);
+  font-weight: 700;
+  line-height: 1.1;
+  max-width: 960px;
+  opacity: 0;
+  animation: fadeUp .8s ease .15s forwards;
+}
+.hero h1 .gradient {
+  background: linear-gradient(135deg, var(--accent), var(--accent2));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+.hero-sub {
+  font-size: clamp(16px, 2vw, 20px);
+  color: var(--text-dim);
+  max-width: 680px;
+  margin-top: 28px;
+  font-weight: 300;
+  opacity: 0;
+  animation: fadeUp .8s ease .3s forwards;
+}
+.hero-sub strong { color: var(--text); font-weight: 500; }
+.hero-stats {
+  display: flex;
+  gap: 48px;
+  margin-top: 56px;
+  flex-wrap: wrap;
+  opacity: 0;
+  animation: fadeUp .8s ease .45s forwards;
+}
+.stat-item .stat-num {
+  font-size: 42px;
+  font-weight: 700;
+  font-family: var(--mono);
+  background: linear-gradient(135deg, var(--accent), var(--accent2));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+.stat-item .stat-label {
+  font-size: 13px;
+  color: var(--text-dim);
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  margin-top: 4px;
+}
+.hero-context {
+  margin-top: 40px;
+  font-family: var(--mono);
+  font-size: 13px;
+  color: var(--text-dim);
+  opacity: 0;
+  animation: fadeUp .8s ease .55s forwards;
+}
+.hero-context span { color: var(--accent); }
+
+/* ── STACK BAR ── */
+.stack-bar {
+  display: flex;
+  gap: 12px;
+  padding: 20px clamp(24px, 6vw, 120px);
+  background: var(--bg2);
+  border-top: 1px solid var(--border);
+  border-bottom: 1px solid var(--border);
+  overflow-x: auto;
+  flex-wrap: wrap;
+}
+.stack-tag {
+  font-family: var(--mono);
+  font-size: 12px;
+  padding: 6px 14px;
+  border-radius: 100px;
+  border: 1px solid var(--border);
+  color: var(--text-dim);
+  white-space: nowrap;
+  transition: all .2s;
+}
+.stack-tag:hover { border-color: var(--accent); color: var(--accent); }
+
+/* ── SECTION ── */
+.section {
+  padding: 80px clamp(24px, 6vw, 120px);
+}
+.section-label {
+  font-family: var(--mono);
+  font-size: 12px;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  color: var(--accent);
+  margin-bottom: 12px;
+}
+.section-title {
+  font-size: clamp(28px, 3.5vw, 44px);
+  font-weight: 600;
+  margin-bottom: 20px;
+}
+.section-intro {
+  font-size: 16px;
+  color: var(--text-dim);
+  max-width: 720px;
+  line-height: 1.7;
+  margin-bottom: 48px;
+}
+
+/* ── BEFORE/AFTER ── */
+.before-after {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 24px;
+  margin-bottom: 64px;
+}
+.ba-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  padding: 36px;
+}
+.ba-card.before { border-top: 3px solid var(--red); }
+.ba-card.after { border-top: 3px solid var(--green); }
+.ba-label {
+  font-family: var(--mono);
+  font-size: 11px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  margin-bottom: 20px;
+}
+.ba-card.before .ba-label { color: var(--red); }
+.ba-card.after .ba-label { color: var(--green); }
+.ba-list {
+  list-style: none;
+}
+.ba-list li {
+  font-size: 14px;
+  color: var(--text-dim);
+  padding: 10px 0;
+  border-bottom: 1px solid rgba(255,255,255,.04);
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  line-height: 1.6;
+}
+.ba-list li:last-child { border-bottom: none; }
+.ba-icon {
+  flex-shrink: 0;
+  font-size: 14px;
+  margin-top: 2px;
+}
+
+/* ── ARCHITECTURE ── */
+.arch-container {
+  background: var(--bg2);
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  padding: 48px;
+  margin-bottom: 64px;
+}
+.arch-title {
+  font-family: var(--mono);
+  font-size: 14px;
+  color: var(--accent);
+  margin-bottom: 32px;
+  text-align: center;
+  letter-spacing: 1px;
+}
+.arch-layers {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+.arch-layer {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+.arch-layer-label {
+  font-family: var(--mono);
+  font-size: 11px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: var(--text-dim);
+  width: 100px;
+  text-align: right;
+  flex-shrink: 0;
+}
+.arch-node {
+  padding: 12px 20px;
+  border-radius: 10px;
+  font-family: var(--mono);
+  font-size: 12px;
+  font-weight: 500;
+  text-align: center;
+  min-width: 100px;
+}
+.arch-node.source { background: rgba(94,234,212,.1); border: 1px solid rgba(94,234,212,.25); color: var(--accent); }
+.arch-node.process { background: rgba(129,140,248,.1); border: 1px solid rgba(129,140,248,.25); color: var(--accent2); }
+.arch-node.output { background: rgba(244,114,182,.1); border: 1px solid rgba(244,114,182,.25); color: var(--accent3); }
+.arch-node.ai { background: rgba(251,146,60,.1); border: 1px solid rgba(251,146,60,.25); color: var(--accent4); }
+.arch-node.infra { background: rgba(167,139,250,.1); border: 1px solid rgba(167,139,250,.25); color: var(--accent5); }
+.arch-arrow {
+  color: var(--text-dim);
+  font-size: 18px;
+  flex-shrink: 0;
+}
+.arch-divider {
+  height: 1px;
+  background: var(--border);
+  margin: 8px 0;
+}
+.arch-note {
+  font-size: 12px;
+  color: var(--text-dim);
+  text-align: center;
+  margin-top: 20px;
+  font-style: italic;
+}
+
+/* ── CATEGORY HEADER ── */
+.category-header {
+  margin-top: 64px;
+  margin-bottom: 32px;
+  padding-bottom: 16px;
+  border-bottom: 1px solid var(--border);
+}
+.category-header:first-of-type { margin-top: 0; }
+.category-name {
+  font-size: 22px;
+  font-weight: 600;
+}
+.category-desc {
+  font-size: 14px;
+  color: var(--text-dim);
+  margin-top: 6px;
+}
+.category-count {
+  font-family: var(--mono);
+  font-size: 12px;
+  color: var(--accent);
+  margin-left: 12px;
+}
+
+/* ── SKILL CARDS ── */
+.skills-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(400px, 1fr));
+  gap: 24px;
+}
+.skill-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  padding: 32px;
+  transition: all .3s;
+  cursor: default;
+  position: relative;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+}
+.skill-card:hover {
+  border-color: var(--accent);
+  transform: translateY(-2px);
+  box-shadow: 0 8px 32px rgba(94,234,212,.06);
+}
+.skill-card::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0;
+  width: 100%; height: 3px;
+}
+.skill-card.c1::before { background: linear-gradient(90deg, var(--accent), transparent); }
+.skill-card.c2::before { background: linear-gradient(90deg, var(--accent2), transparent); }
+.skill-card.c3::before { background: linear-gradient(90deg, var(--accent3), transparent); }
+.skill-card.c4::before { background: linear-gradient(90deg, var(--accent4), transparent); }
+.skill-card.c5::before { background: linear-gradient(90deg, var(--accent5), transparent); }
+.skill-card.c6::before { background: linear-gradient(90deg, var(--green), transparent); }
+.skill-card.c7::before { background: linear-gradient(90deg, var(--yellow), transparent); }
+.skill-header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  margin-bottom: 12px;
+}
+.skill-name { font-size: 18px; font-weight: 600; }
+.skill-badge {
+  font-family: var(--mono);
+  font-size: 10px;
+  padding: 4px 10px;
+  border-radius: 100px;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  flex-shrink: 0;
+}
+.badge-intel { background: rgba(244,114,182,.15); color: var(--accent3); }
+.badge-email { background: rgba(251,146,60,.15); color: var(--accent4); }
+.badge-crm { background: rgba(167,139,250,.15); color: var(--accent5); }
+.badge-auto { background: rgba(94,234,212,.15); color: var(--accent); }
+.badge-infra { background: rgba(251,191,36,.15); color: var(--yellow); }
+
+/* ── VALUE PROP ── */
+.skill-value {
+  font-size: 14px;
+  color: var(--accent);
+  font-weight: 500;
+  margin-bottom: 12px;
+  line-height: 1.5;
+}
+.skill-desc {
+  font-size: 14px;
+  color: var(--text-dim);
+  margin-bottom: 16px;
+  line-height: 1.7;
+}
+
+/* ── BEFORE/AFTER INLINE ── */
+.skill-ba {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+  margin-bottom: 16px;
+  font-size: 12px;
+}
+.skill-ba-item {
+  padding: 10px 12px;
+  border-radius: 8px;
+  line-height: 1.5;
+}
+.skill-ba-item.before {
+  background: rgba(248,113,113,.06);
+  border: 1px solid rgba(248,113,113,.15);
+  color: var(--text-dim);
+}
+.skill-ba-item.after {
+  background: rgba(52,211,153,.06);
+  border: 1px solid rgba(52,211,153,.15);
+  color: var(--text-dim);
+}
+.skill-ba-label {
+  font-family: var(--mono);
+  font-size: 9px;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  margin-bottom: 4px;
+  display: block;
+}
+.skill-ba-item.before .skill-ba-label { color: var(--red); }
+.skill-ba-item.after .skill-ba-label { color: var(--green); }
+
+/* ── FLOW STEPS ── */
+.flow-steps { margin-bottom: 16px; }
+.flow-step {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  padding: 6px 0;
+  font-size: 13px;
+  color: var(--text-dim);
+}
+.step-num {
+  font-family: var(--mono);
+  font-size: 11px;
+  font-weight: 600;
+  width: 22px;
+  height: 22px;
+  border-radius: 6px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  margin-top: 1px;
+}
+.c1 .step-num { background: rgba(94,234,212,.15); color: var(--accent); }
+.c2 .step-num { background: rgba(129,140,248,.15); color: var(--accent2); }
+.c3 .step-num { background: rgba(244,114,182,.15); color: var(--accent3); }
+.c4 .step-num { background: rgba(251,146,60,.15); color: var(--accent4); }
+.c5 .step-num { background: rgba(167,139,250,.15); color: var(--accent5); }
+.c6 .step-num { background: rgba(52,211,153,.15); color: var(--green); }
+.c7 .step-num { background: rgba(251,191,36,.15); color: var(--yellow); }
+
+/* ── CODE BLOCK ── */
+.code-block {
+  background: var(--code-bg);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 16px;
+  font-family: var(--mono);
+  font-size: 11.5px;
+  line-height: 1.7;
+  overflow-x: auto;
+  color: var(--text-dim);
+  margin-top: 8px;
+}
+.code-block .kw { color: var(--accent2); }
+.code-block .fn { color: var(--accent); }
+.code-block .str { color: var(--accent3); }
+.code-block .cmt { color: #555568; font-style: italic; }
+.code-block .op { color: var(--accent4); }
+.code-block .val { color: var(--yellow); }
+
+/* ── INTEGRATIONS ── */
+.integrations {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+  margin-top: auto;
+  padding-top: 16px;
+  border-top: 1px solid var(--border);
+}
+.int-tag {
+  font-family: var(--mono);
+  font-size: 10px;
+  padding: 3px 8px;
+  border-radius: 4px;
+  background: rgba(255,255,255,.04);
+  color: var(--text-dim);
+  letter-spacing: .5px;
+}
+
+/* ── EXPAND/COLLAPSE ── */
+.expand-toggle {
+  font-family: var(--mono);
+  font-size: 11px;
+  color: var(--accent);
+  cursor: pointer;
+  padding: 6px 0;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  user-select: none;
+  border: none;
+  background: none;
+  transition: opacity .2s;
+}
+.expand-toggle:hover { opacity: .7; }
+.expand-toggle .arrow { transition: transform .2s; display: inline-block; }
+.expand-content { display: none; }
+.expand-content.open { display: block; }
+.expand-toggle.open .arrow { transform: rotate(90deg); }
+
+/* ── WORKFLOW CHAINS ── */
+.chains-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+  gap: 24px;
+  margin-top: 48px;
+}
+.chain-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  padding: 28px;
+}
+.chain-title {
+  font-size: 16px;
+  font-weight: 600;
+  margin-bottom: 8px;
+}
+.chain-desc {
+  font-size: 13px;
+  color: var(--text-dim);
+  line-height: 1.6;
+  margin-bottom: 16px;
+}
+.chain-flow {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+.chain-node {
+  font-family: var(--mono);
+  font-size: 11px;
+  padding: 6px 12px;
+  border-radius: 6px;
+  background: rgba(94,234,212,.08);
+  border: 1px solid rgba(94,234,212,.2);
+  color: var(--accent);
+  white-space: nowrap;
+}
+.chain-arrow {
+  color: var(--text-dim);
+  font-size: 14px;
+}
+
+/* ── PATTERNS ── */
+.patterns-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+  gap: 28px;
+}
+.pattern-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  padding: 28px;
+}
+.pattern-icon {
+  font-size: 28px;
+  margin-bottom: 14px;
+}
+.pattern-name {
+  font-size: 16px;
+  font-weight: 600;
+  margin-bottom: 8px;
+}
+.pattern-desc {
+  font-size: 13px;
+  color: var(--text-dim);
+  line-height: 1.7;
+}
+.pattern-used {
+  font-family: var(--mono);
+  font-size: 10px;
+  color: var(--accent);
+  margin-top: 12px;
+  letter-spacing: .5px;
+}
+
+/* ── METRICS ── */
+.metrics-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  gap: 20px;
+  margin-top: 48px;
+}
+.metric-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 28px;
+}
+.metric-label {
+  font-size: 13px;
+  color: var(--text-dim);
+  margin-bottom: 8px;
+}
+.metric-value {
+  font-size: 32px;
+  font-weight: 700;
+  font-family: var(--mono);
+}
+.metric-detail {
+  font-size: 12px;
+  color: var(--text-dim);
+  margin-top: 4px;
+}
+.mv-teal { color: var(--accent); }
+.mv-purple { color: var(--accent2); }
+.mv-pink { color: var(--accent3); }
+.mv-orange { color: var(--accent4); }
+.mv-green { color: var(--green); }
+.mv-yellow { color: var(--yellow); }
+
+/* ── PHILOSOPHY ── */
+.philosophy {
+  background: var(--bg2);
+  border-top: 1px solid var(--border);
+  border-bottom: 1px solid var(--border);
+}
+
+/* ── FOOTER ── */
+footer {
+  padding: 40px clamp(24px, 6vw, 120px);
+  border-top: 1px solid var(--border);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 16px;
+}
+footer .foot-left {
+  font-family: var(--mono);
+  font-size: 13px;
+  color: var(--text-dim);
+}
+footer .foot-right {
+  font-size: 13px;
+  color: var(--text-dim);
+}
+
+/* ── ANIMATIONS ── */
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* ── RESPONSIVE ── */
+@media (max-width: 860px) {
+  .before-after { grid-template-columns: 1fr; }
+  .skill-ba { grid-template-columns: 1fr; }
+  .skills-grid { grid-template-columns: 1fr; }
+  .hero-stats { gap: 32px; }
+}
+@media (max-width: 480px) {
+  .hero h1 { font-size: 28px; }
+  .stat-item .stat-num { font-size: 32px; }
+  .arch-layer-label { display: none; }
+}
+</style>
+</head>
+<body>
+
+<!-- ════════════════════════════════════════════════ HERO ═══════════════════════════════════════════════ -->
+<section class="hero">
+  <div class="hero-label">Ashish Saraf &middot; AWS Alliance Lead at Clazar</div>
+  <h1>I replaced <span class="gradient">40 hours of manual work</span> with 13 AI automations</h1>
+  <p class="hero-sub">
+    Every partner profile, every co-sell email, every CRM update, every pipeline review &mdash;
+    <strong>automated end-to-end</strong> with Claude Code, direct API calls, and 8 MCP integrations.
+    No manual data entry. No copy-paste. No context switching.
+  </p>
+  <div class="hero-stats">
+    <div class="stat-item">
+      <div class="stat-num">13</div>
+      <div class="stat-label">Custom Skills</div>
+    </div>
+    <div class="stat-item">
+      <div class="stat-num">8+</div>
+      <div class="stat-label">Integrations</div>
+    </div>
+    <div class="stat-item">
+      <div class="stat-num">~2min</div>
+      <div class="stat-label">Per Partner Profile</div>
+    </div>
+    <div class="stat-item">
+      <div class="stat-num">0</div>
+      <div class="stat-label">Manual Data Entry</div>
+    </div>
+  </div>
+  <div class="hero-context">
+    Built with <span>Claude Code</span> &middot; Running on macOS via LaunchAgent scheduling &middot; Every skill is a <span>.md</span> command file
+  </div>
+</section>
+
+<!-- ════════════════════════════════════════════════ STACK BAR ═══════════════════════════════════════════════ -->
+<div class="stack-bar">
+  <span class="stack-tag">Claude Code (Opus)</span>
+  <span class="stack-tag">HubSpot CRM API</span>
+  <span class="stack-tag">HubSpot Custom Objects</span>
+  <span class="stack-tag">Gmail MCP</span>
+  <span class="stack-tag">Slack MCP</span>
+  <span class="stack-tag">Notion MCP</span>
+  <span class="stack-tag">Fireflies MCP</span>
+  <span class="stack-tag">Clay MCP</span>
+  <span class="stack-tag">HeyReach MCP</span>
+  <span class="stack-tag">Apify (LinkedIn)</span>
+  <span class="stack-tag">macOS LaunchAgent</span>
+  <span class="stack-tag">Node.js</span>
+  <span class="stack-tag">Python 3</span>
+</div>
+
+<!-- ════════════════════════════════════════════════ BEFORE / AFTER ═══════════════════════════════════════════════ -->
+<section class="section">
+  <div class="section-label">The Problem</div>
+  <div class="section-title">What partnerships work looked like</div>
+
+  <div class="before-after">
+    <div class="ba-card before">
+      <div class="ba-label">Before &mdash; Manual</div>
+      <ul class="ba-list">
+        <li><span class="ba-icon">&#x2717;</span> 45+ minutes per partner profile: open 6 tabs, copy-paste across HubSpot, Slack, Fireflies, Notion</li>
+        <li><span class="ba-icon">&#x2717;</span> Co-sell emails: read HubSpot task, find Slack message, look up AM history, compose email, CC the right people</li>
+        <li><span class="ba-icon">&#x2717;</span> Partner data goes stale: people change jobs, titles change, emails bounce &mdash; nobody notices for months</li>
+        <li><span class="ba-icon">&#x2717;</span> Pipeline review: manually check each deal for meeting status, flag stale ones, ping owners individually</li>
+        <li><span class="ba-icon">&#x2717;</span> Call notes: listen to recordings, figure out which companies were discussed, update the right HubSpot records</li>
+        <li><span class="ba-icon">&#x2717;</span> Account mapping: CSV uploads, manual association labeling, conflict resolution &mdash; error-prone at scale</li>
+      </ul>
+    </div>
+    <div class="ba-card after">
+      <div class="ba-label">After &mdash; Automated</div>
+      <ul class="ba-list">
+        <li><span class="ba-icon">&#x2713;</span> Partner Intelligence builds a full 360&deg; Notion page in ~2 minutes from 6 sources in parallel</li>
+        <li><span class="ba-icon">&#x2713;</span> Co-sell drafts created end-to-end: tasks pulled, Slack content fetched, emails personalized, Gmail drafts ready</li>
+        <li><span class="ba-icon">&#x2713;</span> Partner cleanup validates every contact against LinkedIn, updates titles, re-maps company associations</li>
+        <li><span class="ba-icon">&#x2713;</span> Deal notifier classifies every deal daily, sends Slack threads grouped by owner with specific actions</li>
+        <li><span class="ba-icon">&#x2713;</span> Call notes processed automatically: companies extracted, matched to HubSpot, AM verified, notes written</li>
+        <li><span class="ba-icon">&#x2713;</span> Account mapper handles CSV parsing, domain resolution, 3-phase association management &mdash; zero manual CRM work</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- ════════════════════════════════════════════════ ARCHITECTURE ═══════════════════════════════════════════════ -->
+<section class="section" style="padding-top: 0;">
+  <div class="section-label">System Architecture</div>
+  <div class="section-title">How it all connects</div>
+  <p class="section-intro">
+    Every skill is a <code style="color:var(--accent);font-family:var(--mono);font-size:14px;">.md</code> file in <code style="color:var(--accent);font-family:var(--mono);font-size:14px;">~/.claude/commands/</code>.
+    Claude Code reads the skill file, plans its approach, then orchestrates API calls across multiple systems.
+    Two HubSpot tokens handle different API scopes. macOS LaunchAgents schedule recurring skills.
+  </p>
+
+  <div class="arch-container">
+    <div class="arch-title">Data Flow</div>
+    <div class="arch-layers">
+      <div class="arch-layer">
+        <span class="arch-layer-label">Sources</span>
+        <div class="arch-node source">HubSpot CRM</div>
+        <div class="arch-node source">Custom Objects</div>
+        <div class="arch-node source">Fireflies</div>
+        <div class="arch-node source">Slack</div>
+        <div class="arch-node source">LinkedIn/Apify</div>
+        <div class="arch-node source">Web Search</div>
+      </div>
+      <div style="text-align:center;color:var(--text-dim);font-size:20px;">&#x2193; &nbsp; parallel fetch &nbsp; &#x2193;</div>
+      <div class="arch-layer">
+        <span class="arch-layer-label">Processing</span>
+        <div class="arch-node ai">Claude Code (Opus)</div>
+        <span class="arch-arrow">&rarr;</span>
+        <div class="arch-node process">Merge &amp; Classify</div>
+        <span class="arch-arrow">&rarr;</span>
+        <div class="arch-node process">Synthesize</div>
+      </div>
+      <div style="text-align:center;color:var(--text-dim);font-size:20px;">&#x2193; &nbsp; write &nbsp; &#x2193;</div>
+      <div class="arch-layer">
+        <span class="arch-layer-label">Outputs</span>
+        <div class="arch-node output">Gmail Drafts</div>
+        <div class="arch-node output">Notion Pages</div>
+        <div class="arch-node output">HubSpot Notes</div>
+        <div class="arch-node output">Slack Messages</div>
+        <div class="arch-node output">HubSpot Updates</div>
+      </div>
+      <div class="arch-divider"></div>
+      <div class="arch-layer">
+        <span class="arch-layer-label">Scheduling</span>
+        <div class="arch-node infra">LaunchAgent Plist</div>
+        <span class="arch-arrow">&rarr;</span>
+        <div class="arch-node infra">Launcher Script</div>
+        <span class="arch-arrow">&rarr;</span>
+        <div class="arch-node infra">claude -p "/<em>skill-name</em>"</div>
+      </div>
+    </div>
+    <div class="arch-note">Dual token architecture: standard HubSpot token for contacts/deals/tasks + custom object token for Partner Contact (2-40826561) associations</div>
+  </div>
+</section>
+
+<!-- ════════════════════════════════════════════════ SKILLS ═══════════════════════════════════════════════ -->
+<section class="section" style="padding-top: 0;">
+  <div class="section-label">The Skills</div>
+  <div class="section-title">13 automations, built to compound</div>
+  <p class="section-intro">
+    Each skill is purpose-built for a specific partnerships workflow. They share patterns &mdash; parallel fetching,
+    graceful failure, human-in-the-loop drafts &mdash; but each solves a distinct problem.
+    Grouped by function: Intelligence, Email, CRM, and Infrastructure.
+  </p>
+
+  <!-- ──────────────── INTELLIGENCE & PROFILES ──────────────── -->
+  <div class="category-header">
+    <span class="category-name">Intelligence &amp; Profiles</span><span class="category-count">3 skills</span>
+    <div class="category-desc">Build and maintain deep knowledge about every partner</div>
+  </div>
+
+  <div class="skills-grid">
+
+    <!-- ─── 1. Partner Intelligence ─── -->
+    <div class="skill-card c1">
+      <div class="skill-header">
+        <div class="skill-name">Partner Intelligence</div>
+        <span class="skill-badge badge-intel">Flagship</span>
+      </div>
+      <div class="skill-value">Builds a complete 360&deg; partner profile in ~2 minutes from 6 data sources &mdash; the work that used to take 45+ minutes of tab-switching and copy-paste.</div>
+      <div class="skill-desc">
+        Resolves the partner across HubSpot standard contacts AND the custom Partner Contact object,
+        then fetches everything in parallel: patch companies, co-sell deals, team hierarchy, notes, emails,
+        Fireflies transcripts, Slack mentions, and web signals. Synthesizes it all into a structured Notion page
+        with an action queue, activity log, co-sell intelligence, patch territory map, and team peer links.
+      </div>
+      <div class="skill-ba">
+        <div class="skill-ba-item before">
+          <span class="skill-ba-label">Before</span>
+          Open HubSpot, Slack, Fireflies, Notion in separate tabs. Copy data. Format manually. 45+ min per profile.
+        </div>
+        <div class="skill-ba-item after">
+          <span class="skill-ba-label">After</span>
+          One command: <code style="font-family:var(--mono);color:var(--accent);">/partner-intelligence build partner@aws.com</code> &rarr; full Notion page in ~2 min.
+        </div>
+      </div>
+      <div class="flow-steps">
+        <div class="flow-step"><span class="step-num">1</span>Resolve partner across custom object (primary) + standard contact (secondary)</div>
+        <div class="flow-step"><span class="step-num">2</span>Parallel fetch: companies, deals, team, notes, emails, transcripts, Slack, web</div>
+        <div class="flow-step"><span class="step-num">3</span>Batch-read details for all entities (single API call per type)</div>
+        <div class="flow-step"><span class="step-num">4</span>Merge with field authority rules (custom object wins for 21 fields)</div>
+        <div class="flow-step"><span class="step-num">5</span>Classify engagement: Hot (&lt;14d) / Warm (14-60d) / Cold (60d+)</div>
+        <div class="flow-step"><span class="step-num">6</span>Write structured Notion page with metadata for incremental updates</div>
+      </div>
+      <button class="expand-toggle" onclick="toggle(this)">
+        <span class="arrow">&#x25B6;</span> view pseudocode
+      </button>
+      <div class="expand-content">
+        <div class="code-block">
+<span class="cmt">// Step 1: Dual-source identity resolution</span>
+<span class="kw">parallel</span> {
+  custom_obj = <span class="fn">curl</span>(<span class="str">"custom-objects/2-40826561?email={input}"</span>)
+  std_contact = <span class="fn">hubspot.search</span>(<span class="str">"contacts"</span>, email)
+  notion_page = <span class="fn">notion.search</span>(email, <span class="str">"collection://27e9..."</span>)
+}
+
+<span class="cmt">// Step 2: Parallel data fetch (all in one message block)</span>
+<span class="kw">parallel</span> {
+  companies  = <span class="fn">curl</span>(<span class="str">"associations/patch-companies"</span>)
+  deals      = <span class="fn">curl</span>(<span class="str">"associations/co-sell-deals"</span>)
+  team       = <span class="fn">curl</span>(<span class="str">"associations/manager-reportees"</span>)
+  notes      = <span class="fn">hubspot.get</span>(<span class="str">"notes"</span>, last_10)
+  emails     = <span class="fn">hubspot.get</span>(<span class="str">"emails"</span>, last_10)
+  transcripts= <span class="fn">fireflies.search</span>(partner_name, last_5)
+  slack_hits = <span class="fn">slack.search</span>(partner_name, last_10)
+  web_intel  = <span class="fn">web.search</span>(partner_name + company)
+}
+
+<span class="cmt">// Step 4: Field authority — custom object wins</span>
+<span class="kw">for</span> field <span class="kw">in</span> [name, email, title, linkedin, phone,
+             city, country, region, segment, lifecycle...]:
+  merged[field] = custom_obj[field] <span class="op">??</span> std_contact[field]
+
+<span class="cmt">// Step 5: Engagement classification</span>
+days_since = <span class="fn">daysBetween</span>(last_activity, today)
+engagement = days_since <span class="op">&lt;</span> <span class="val">14</span> ? <span class="str">"Hot"</span>
+           : days_since <span class="op">&lt;</span> <span class="val">60</span> ? <span class="str">"Warm"</span> : <span class="str">"Cold"</span>
+
+<span class="cmt">// Step 6: Write with incremental metadata</span>
+<span class="fn">notion.write</span>(page, {
+  action_queue, activity_log, cosell_intel,
+  patch_territory, team_peer_map, profile,
+  metadata: { last_full_build: today, update_count: <span class="val">0</span> }
+})
+</div>
+      </div>
+      <div class="integrations">
+        <span class="int-tag">HubSpot MCP</span>
+        <span class="int-tag">Custom Object API</span>
+        <span class="int-tag">Fireflies</span>
+        <span class="int-tag">Slack</span>
+        <span class="int-tag">Notion</span>
+        <span class="int-tag">Web Search</span>
+      </div>
+    </div>
+
+    <!-- ─── 2. Prospect → AM Bridge Intel ─── -->
+    <div class="skill-card c3">
+      <div class="skill-header">
+        <div class="skill-name">Prospect &rarr; AM Bridge Intel</div>
+        <span class="skill-badge badge-intel">Intel</span>
+      </div>
+      <div class="skill-value">When a prospect responds, instantly builds the context package your AWS AM needs &mdash; social proof, engagement history, and a draft message &mdash; so the intro feels warm, not cold.</div>
+      <div class="skill-desc">
+        Extracts the prospect signal, finds their company in HubSpot, retrieves the mapped AWS Account Manager
+        (from <code style="font-family:var(--mono);font-size:12px;">aws_account_manager_email</code>), builds social proof from similar Clazar customers,
+        fetches the AM's last 3 notes and emails, and synthesizes a ready-to-send reachout plan with
+        multiple angles.
+      </div>
+      <div class="skill-ba">
+        <div class="skill-ba-item before">
+          <span class="skill-ba-label">Before</span>
+          Prospect responds &rarr; scramble to find AM, look up history, figure out what to say. 20+ min.
+        </div>
+        <div class="skill-ba-item after">
+          <span class="skill-ba-label">After</span>
+          One command &rarr; full AM context package with social proof, draft message, engagement status. 2 min.
+        </div>
+      </div>
+      <div class="flow-steps">
+        <div class="flow-step"><span class="step-num">1</span>Find prospect + company in HubSpot, retrieve <code style="font-family:var(--mono);font-size:12px;">aws_account_manager_email</code></div>
+        <div class="flow-step"><span class="step-num">2</span>Build social proof: match Clazar customers by ecosystem (voice AI &rarr; meeting intelligence)</div>
+        <div class="flow-step"><span class="step-num">3</span>Fetch AM's last 3 notes + 3 emails, classify engagement (Hot/Warm/Cold thresholds)</div>
+        <div class="flow-step"><span class="step-num">4</span>Synthesize: prospect signal + AM status + social proof + multi-angle draft message</div>
+      </div>
+      <div class="integrations">
+        <span class="int-tag">HubSpot MCP</span>
+        <span class="int-tag">Custom Object API</span>
+      </div>
+    </div>
+
+    <!-- ─── 3. Partner Team Lookup ─── -->
+    <div class="skill-card c5">
+      <div class="skill-header">
+        <div class="skill-name">Partner Team Lookup</div>
+        <span class="skill-badge badge-intel">Intel</span>
+      </div>
+      <div class="skill-value">Given any partner contact, instantly maps their full team: manager, all peer reportees, lifecycle stages, account counts, and latest meeting dates.</div>
+      <div class="skill-desc">
+        Traverses HubSpot's custom Partner Contact object to resolve the manager/reportee hierarchy in both directions.
+        If you give it an AM, it finds their SM and all peers. If you give it an SM, it returns all their reportees.
+        Outputs a clean table with lifecycle, deal counts, and meeting freshness.
+      </div>
+      <div class="skill-ba">
+        <div class="skill-ba-item before">
+          <span class="skill-ba-label">Before</span>
+          Navigate custom objects manually, click through each association, cross-reference contacts. 15+ min.
+        </div>
+        <div class="skill-ba-item after">
+          <span class="skill-ba-label">After</span>
+          One command &rarr; formatted team table with full context. 30 seconds.
+        </div>
+      </div>
+      <div class="flow-steps">
+        <div class="flow-step"><span class="step-num">1</span>Fetch partner record + partner-to-partner associations (Manager/Reportee labels)</div>
+        <div class="flow-step"><span class="step-num">2</span>Resolve direction: AM has Manager, SM has Reportees</div>
+        <div class="flow-step"><span class="step-num">3</span>Batch-read all team member details in single API call</div>
+        <div class="flow-step"><span class="step-num">4</span>Cross-reference HubSpot contacts for <code style="font-family:var(--mono);font-size:12px;">latest_meeting_date</code></div>
+      </div>
+      <div class="integrations">
+        <span class="int-tag">Custom Object API</span>
+        <span class="int-tag">HubSpot MCP</span>
+        <span class="int-tag">Keychain</span>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- ──────────────── EMAIL AUTOMATION ──────────────── -->
+  <div class="category-header">
+    <span class="category-name">Email Automation</span><span class="category-count">5 skills</span>
+    <div class="category-desc">Turn CRM tasks and signals into personalized Gmail drafts &mdash; humans approve, never robots</div>
+  </div>
+
+  <div class="skills-grid">
+
+    <!-- ─── 4. AWS Co-Sell Email Drafter ─── -->
+    <div class="skill-card c4">
+      <div class="skill-header">
+        <div class="skill-name">AWS Co-Sell Email Drafter</div>
+        <span class="skill-badge badge-email">Email</span>
+      </div>
+      <div class="skill-value">Fully automated end-to-end: pulls HubSpot co-sell tasks, fetches Slack email templates, groups by AWS AM, personalizes with engagement history, and creates Gmail drafts. No approval step between AMs.</div>
+      <div class="skill-desc">
+        Processes Simran's "Co-sell Initiation" tasks: resolves her owner ID, pulls NOT_STARTED tasks,
+        fetches associated deals (filtering out Channel Partnership), parses Slack message links
+        (converting <code style="font-family:var(--mono);font-size:12px;">p1773854406648669</code> to API timestamp format),
+        researches the last 3 months of engagement per AM, composes personalized drafts with the Slack content as the email body,
+        and marks every task COMPLETED.
+      </div>
+      <div class="skill-ba">
+        <div class="skill-ba-item before">
+          <span class="skill-ba-label">Before</span>
+          Open each task, find the Slack message, look up AM history, compose email, CC the right people. 10+ min per AM.
+        </div>
+        <div class="skill-ba-item after">
+          <span class="skill-ba-label">After</span>
+          One command processes all pending tasks &rarr; Gmail drafts ready, tasks marked complete. ~1 min per AM.
+        </div>
+      </div>
+      <div class="flow-steps">
+        <div class="flow-step"><span class="step-num">1</span>Pull NOT_STARTED "Co-sell Initiation" tasks assigned to Simran</div>
+        <div class="flow-step"><span class="step-num">2</span>Fetch associated deals, filter out Channel Partnership deals</div>
+        <div class="flow-step"><span class="step-num">3</span>Parse Slack link from task body &rarr; fetch message content via Slack MCP</div>
+        <div class="flow-step"><span class="step-num">4</span>Group deals by <code style="font-family:var(--mono);font-size:12px;">aws_account_manager_email</code> (multi-deal = single email with bullets)</div>
+        <div class="flow-step"><span class="step-num">5</span>Check for active Gmail threads (last 7 days), research personalization (3 months lookback)</div>
+        <div class="flow-step"><span class="step-num">6</span>Compose draft with personalization opener + Slack content + booking link &rarr; CC partnerships@ + PSM</div>
+        <div class="flow-step"><span class="step-num">7</span>Create Gmail draft, mark tasks COMPLETED</div>
+      </div>
+      <button class="expand-toggle" onclick="toggle(this)">
+        <span class="arrow">&#x25B6;</span> view pseudocode
+      </button>
+      <div class="expand-content">
+        <div class="code-block">
+<span class="cmt">// Slack timestamp conversion (critical detail)</span>
+raw = <span class="str">"p1773854406648669"</span>
+ts  = raw[1:10] + <span class="str">"."</span> + raw[10:]  <span class="cmt">// → "1773854406.648669"</span>
+
+<span class="cmt">// Group deals by AM for combined emails</span>
+groups = <span class="fn">groupBy</span>(deals, d =&gt; d.aws_account_manager_email)
+
+<span class="kw">for</span> [am_email, am_deals] <span class="kw">of</span> groups:
+  recent_thread = <span class="fn">gmail.search</span>(am_email, last_7_days)
+  intel = <span class="fn">parallel</span> {
+    <span class="fn">hubspot.notes</span>(am_email, 3_months)
+    <span class="fn">fireflies.search</span>(am_email)
+    <span class="fn">slack.search</span>(am_email)
+  }
+  draft = <span class="fn">compose</span>({
+    personalization: intel,
+    body: slack_content,  <span class="cmt">// preserved from Slack message</span>
+    booking: <span class="str">"clazar.chilipiper.com/me/caleb-mills/..."</span>,
+    cc: [<span class="str">"partnerships@clazar.io"</span>, psm_if_available]
+  })
+  <span class="fn">gmail.createDraft</span>(draft)
+  <span class="kw">for</span> task <span class="kw">of</span> am_deals:
+    <span class="fn">hubspot.updateTask</span>(task, <span class="str">"COMPLETED"</span>)
+</div>
+      </div>
+      <div class="integrations">
+        <span class="int-tag">HubSpot MCP</span>
+        <span class="int-tag">Slack MCP</span>
+        <span class="int-tag">Gmail MCP</span>
+        <span class="int-tag">Fireflies</span>
+      </div>
+    </div>
+
+    <!-- ─── 5. Deal Lost Notify ─── -->
+    <div class="skill-card c4">
+      <div class="skill-header">
+        <div class="skill-name">Deal Lost Notify</div>
+        <span class="skill-badge badge-email">Email</span>
+      </div>
+      <div class="skill-value">Processes "Co-sell Lost" tasks and creates empathetic Gmail drafts that acknowledge the loss, preserve the relationship, and keep the door open &mdash; with a 5-point tone checklist on every draft.</div>
+      <div class="skill-desc">
+        Handles two task formats: Slack link tasks (standard) and inline HTML content tasks (revival motions).
+        Groups by AM, personalizes with engagement history, appends cached Gmail signature, and runs a tone checklist:
+        collegial not vendor-y, acknowledges loss without negativity, soft CTA, "we" language, signature included.
+        Includes <code style="font-family:var(--mono);font-size:12px;">closed_lost_reason</code> and notes in composition context.
+      </div>
+      <div class="skill-ba">
+        <div class="skill-ba-item before">
+          <span class="skill-ba-label">Before</span>
+          Carefully compose each lost deal email to maintain the relationship. 15+ min per AM (emotionally draining work).
+        </div>
+        <div class="skill-ba-item after">
+          <span class="skill-ba-label">After</span>
+          Tone-checked drafts that sound human, not automated. Review and send. 1 min per AM.
+        </div>
+      </div>
+      <div class="flow-steps">
+        <div class="flow-step"><span class="step-num">1</span>Load Gmail signature from cached HTML file</div>
+        <div class="flow-step"><span class="step-num">2</span>Pull NOT_STARTED "Lost" tasks, fetch associated deals with <code style="font-family:var(--mono);font-size:12px;">closed_lost_reason</code></div>
+        <div class="flow-step"><span class="step-num">3</span>Fetch Slack content (link or inline HTML), group by AM</div>
+        <div class="flow-step"><span class="step-num">4</span>Research personalization, compose with tone checklist, append signature</div>
+        <div class="flow-step"><span class="step-num">5</span>Create Gmail draft, mark tasks COMPLETED</div>
+      </div>
+      <div class="integrations">
+        <span class="int-tag">HubSpot MCP</span>
+        <span class="int-tag">Slack MCP</span>
+        <span class="int-tag">Gmail MCP</span>
+        <span class="int-tag">Fireflies</span>
+      </div>
+    </div>
+
+    <!-- ─── 6. AWS AM Outreach ─── -->
+    <div class="skill-card c4">
+      <div class="skill-header">
+        <div class="skill-name">AWS AM Outreach</div>
+        <span class="skill-badge badge-email">Email</span>
+      </div>
+      <div class="skill-value">Intelligently selects from 5 proven email templates based on engagement tier, deal activity, and territory data &mdash; each template modeled on actual emails that received replies.</div>
+      <div class="skill-desc">
+        For each AWS AM: builds an intelligence profile (engagement tier, Not Greenfield accounts, active deals,
+        region/segment), then uses a decision tree to pick the right scenario. Active deal? &rarr; Co-sell Alignment.
+        Can name specific companies? &rarr; Account Followup. International? &rarr; Funding/Territory.
+        Prior engagement? &rarr; Planning Sync. Cold? &rarr; PPA Propensity Report. Every email positions Clazar
+        as a partnerships colleague, not a vendor.
+      </div>
+      <div class="skill-ba">
+        <div class="skill-ba-item before">
+          <span class="skill-ba-label">Before</span>
+          Research each AM, figure out the right angle, write a personalized email from scratch. 20+ min per AM.
+        </div>
+        <div class="skill-ba-item after">
+          <span class="skill-ba-label">After</span>
+          AI selects the proven template, personalizes with real data, drafts with correct tone. 2 min per AM.
+        </div>
+      </div>
+      <div class="flow-steps">
+        <div class="flow-step"><span class="step-num">1</span>Fetch AM contacts from HubSpot, build intelligence profile per AM</div>
+        <div class="flow-step"><span class="step-num">2</span>Score engagement tier: Hot (&lt;30d) / Warm (30-90d) / Cold (90d+)</div>
+        <div class="flow-step"><span class="step-num">3</span>Decision tree selects scenario: PPA_PROPENSITY | ACCOUNT_FOLLOWUP | FUNDING | COSELL | PLANNING</div>
+        <div class="flow-step"><span class="step-num">4</span>Apply template with real data: companies, deals, territory signals</div>
+        <div class="flow-step"><span class="step-num">5</span>Run tone philosophy check, create Gmail draft with booking link</div>
+      </div>
+      <button class="expand-toggle" onclick="toggle(this)">
+        <span class="arrow">&#x25B6;</span> view pseudocode
+      </button>
+      <div class="expand-content">
+        <div class="code-block">
+<span class="cmt">// Decision tree for scenario selection</span>
+<span class="kw">function</span> <span class="fn">selectScenario</span>(am) {
+  <span class="kw">if</span> (am.active_deals.length <span class="op">&gt;</span> <span class="val">0</span>)
+    <span class="kw">return</span> <span class="str">"COSELL_ALIGNMENT"</span>
+  <span class="kw">if</span> (am.not_greenfield_accounts.length <span class="op">&gt;=</span> <span class="val">2</span>)
+    <span class="kw">return</span> <span class="str">"ACCOUNT_FOLLOWUP"</span>   <span class="cmt">// name specific companies</span>
+  <span class="kw">if</span> (am.region === <span class="str">"international"</span>)
+    <span class="kw">return</span> <span class="str">"FUNDING_TERRITORY"</span>  <span class="cmt">// $20K AWS funding angle</span>
+  <span class="kw">if</span> (am.engagement_tier !== <span class="str">"Cold"</span>)
+    <span class="kw">return</span> <span class="str">"PLANNING_SYNC"</span>     <span class="cmt">// warm contact, request account list</span>
+  <span class="kw">return</span> <span class="str">"PPA_PROPENSITY"</span>      <span class="cmt">// highest cold conversion rate</span>
+}
+
+<span class="cmt">// Tone philosophy (enforced on every draft)</span>
+<span class="cmt">// - Position as partnerships colleague, not vendor</span>
+<span class="cmt">// - "We're seeing X on your patch" not "Clazar helps ISVs"</span>
+<span class="cmt">// - Every email offers concrete deliverable</span>
+<span class="cmt">// - Meeting day awareness: Mon→"Tue/Wed?", Thu→"Fri/Mon?"</span>
+</div>
+      </div>
+      <div class="integrations">
+        <span class="int-tag">HubSpot MCP</span>
+        <span class="int-tag">Gmail MCP</span>
+        <span class="int-tag">Fireflies</span>
+        <span class="int-tag">Slack</span>
+      </div>
+    </div>
+
+    <!-- ─── 7. Email Responder ─── -->
+    <div class="skill-card c4">
+      <div class="skill-header">
+        <div class="skill-name">Email Responder</div>
+        <span class="skill-badge badge-email">Email</span>
+      </div>
+      <div class="skill-value">Scans an incoming email, optionally pulls context from Gmail threads, HubSpot deals, and Slack &mdash; then drafts a reply that matches the sender's exact tone and addresses every point.</div>
+      <div class="skill-desc">
+        Parses the email for key points, tone, and action items. Only pulls additional context when it would
+        add value &mdash; self-contained emails skip research entirely. Supports iterative refinement
+        (shorter, longer, more formal, custom edits) without re-explaining the full context.
+        Creates a Gmail draft or copies text, user's choice.
+      </div>
+      <div class="skill-ba">
+        <div class="skill-ba-item before">
+          <span class="skill-ba-label">Before</span>
+          Read email, look up context in 3 systems, draft reply matching the right tone. 10+ min for complex threads.
+        </div>
+        <div class="skill-ba-item after">
+          <span class="skill-ba-label">After</span>
+          Paste the email &rarr; contextual draft with tone matching. Iterate until perfect. 2 min.
+        </div>
+      </div>
+      <div class="flow-steps">
+        <div class="flow-step"><span class="step-num">1</span>Parse incoming email: sender, subject, key points, tone, action items</div>
+        <div class="flow-step"><span class="step-num">2</span>Optionally pull context: Gmail thread history, HubSpot contact/deal, Slack</div>
+        <div class="flow-step"><span class="step-num">3</span>Draft reply matching tone, addressing all points</div>
+        <div class="flow-step"><span class="step-num">4</span>Present for review &rarr; iterate or create Gmail draft</div>
+      </div>
+      <div class="integrations">
+        <span class="int-tag">Gmail MCP</span>
+        <span class="int-tag">HubSpot MCP</span>
+        <span class="int-tag">Slack MCP</span>
+      </div>
+    </div>
+
+    <!-- ─── 8. Cleanup Pending Emails ─── -->
+    <div class="skill-card c6">
+      <div class="skill-header">
+        <div class="skill-name">Cleanup Pending Emails</div>
+        <span class="skill-badge badge-auto">Auto</span>
+      </div>
+      <div class="skill-value">Resolves Clay email enrichment tasks that didn't complete during partner cleanup &mdash; polls for completions, shows a diff table for confirmation, then updates HubSpot contacts.</div>
+      <div class="skill-desc">
+        Reads the pending tasks file, checks each Clay task's status, extracts completed email addresses,
+        shows before/after changes for user confirmation, and updates HubSpot. Automatically expires tasks
+        older than 24 hours and rewrites the pending file with only in-progress tasks.
+      </div>
+      <div class="skill-ba">
+        <div class="skill-ba-item before">
+          <span class="skill-ba-label">Before</span>
+          Manually check each Clay task, copy emails back to HubSpot. Easy to forget pending tasks entirely.
+        </div>
+        <div class="skill-ba-item after">
+          <span class="skill-ba-label">After</span>
+          One command polls all pending tasks, shows diff, updates HubSpot. Expired tasks auto-cleaned.
+        </div>
+      </div>
+      <div class="flow-steps">
+        <div class="flow-step"><span class="step-num">1</span>Read <code style="font-family:var(--mono);font-size:12px;">pending-clay-tasks.json</code>, poll each task via Clay MCP</div>
+        <div class="flow-step"><span class="step-num">2</span>Extract completed emails, expire tasks &gt;24h old</div>
+        <div class="flow-step"><span class="step-num">3</span>Show diff table for confirmation, update HubSpot contacts</div>
+        <div class="flow-step"><span class="step-num">4</span>Rewrite pending file with only in-progress tasks</div>
+      </div>
+      <div class="integrations">
+        <span class="int-tag">Clay MCP</span>
+        <span class="int-tag">HubSpot MCP</span>
+        <span class="int-tag">File I/O</span>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- ──────────────── CRM & DATA OPERATIONS ──────────────── -->
+  <div class="category-header">
+    <span class="category-name">CRM &amp; Data Operations</span><span class="category-count">4 skills</span>
+    <div class="category-desc">Keep the CRM clean, the pipeline visible, and the data fresh</div>
+  </div>
+
+  <div class="skills-grid">
+
+    <!-- ─── 9. Partner Account Mapper ─── -->
+    <div class="skill-card c5">
+      <div class="skill-header">
+        <div class="skill-name">Partner Account Mapper</div>
+        <span class="skill-badge badge-crm">CRM</span>
+      </div>
+      <div class="skill-value">Maps companies to partner contacts with association labels via a 3-phase process: clear stale associations, clean conflicts, then create new ones &mdash; preventing the duplicate and orphan associations that plague manual CRM work.</div>
+      <div class="skill-desc">
+        Supports two CSV formats: full (with company IDs and partner record IDs) or minimal (just company names &mdash;
+        auto-enriches domains via HubSpot search + DNS probing across .com/.ai/.io/.co, resolves partner by name).
+        Always runs a dry-run preview first. Groups by partner+label for independent processing.
+        Auto-creates missing companies when domain is resolved.
+      </div>
+      <div class="skill-ba">
+        <div class="skill-ba-item before">
+          <span class="skill-ba-label">Before</span>
+          Manual HubSpot associations: find company, find partner, set label, check for conflicts. Error-prone at scale.
+        </div>
+        <div class="skill-ba-item after">
+          <span class="skill-ba-label">After</span>
+          CSV in &rarr; dry-run preview &rarr; confirm &rarr; 3-phase execution with conflict resolution. Minutes for hundreds.
+        </div>
+      </div>
+      <div class="flow-steps">
+        <div class="flow-step"><span class="step-num">1</span>Parse CSV (detect full vs. minimal format), resolve partner by name if needed</div>
+        <div class="flow-step"><span class="step-num">2</span>For minimal CSV: search HubSpot + probe DNS to resolve company domains</div>
+        <div class="flow-step"><span class="step-num">3</span>Dry-run preview: show planned changes grouped by partner+label</div>
+        <div class="flow-step"><span class="step-num">4</span>Phase 1: Clear stale associations &rarr; Phase 2: Clean conflicts &rarr; Phase 3: Create new</div>
+      </div>
+      <button class="expand-toggle" onclick="toggle(this)">
+        <span class="arrow">&#x25B6;</span> view pseudocode
+      </button>
+      <div class="expand-content">
+        <div class="code-block">
+<span class="cmt">// Minimal CSV enrichment pipeline</span>
+<span class="kw">for</span> company_name <span class="kw">of</span> csv_rows:
+  <span class="cmt">// Try HubSpot search first</span>
+  match = <span class="fn">hubspot.search</span>(<span class="str">"companies"</span>, company_name)
+  <span class="kw">if</span> (!match) {
+    <span class="cmt">// DNS probe: try common TLDs</span>
+    <span class="kw">for</span> tld <span class="kw">of</span> [<span class="str">".com"</span>, <span class="str">".ai"</span>, <span class="str">".io"</span>, <span class="str">".co"</span>]:
+      domain = <span class="fn">slugify</span>(company_name) + tld
+      <span class="kw">if</span> (<span class="fn">dnsResolves</span>(domain))
+        match = <span class="fn">hubspot.create</span>(<span class="str">"company"</span>, { domain })
+  }
+
+<span class="cmt">// 3-phase execution (prevents duplicates)</span>
+<span class="kw">for</span> [partner, label, companies] <span class="kw">of</span> groups:
+  <span class="fn">phase1_clear</span>(partner, label)   <span class="cmt">// remove old</span>
+  <span class="fn">phase2_clean</span>(partner, label)   <span class="cmt">// resolve conflicts</span>
+  <span class="fn">phase3_create</span>(partner, label, companies) <span class="cmt">// add new</span>
+</div>
+      </div>
+      <div class="integrations">
+        <span class="int-tag">Node.js Script</span>
+        <span class="int-tag">HubSpot REST API</span>
+        <span class="int-tag">DNS Probing</span>
+        <span class="int-tag">Keychain</span>
+      </div>
+    </div>
+
+    <!-- ─── 10. Partner Contact Cleanup ─── -->
+    <div class="skill-card c5">
+      <div class="skill-header">
+        <div class="skill-name">Partner Contact Cleanup</div>
+        <span class="skill-badge badge-crm">CRM</span>
+      </div>
+      <div class="skill-value">Validates every partner contact against their LinkedIn profile, detects job changes and title updates, re-maps company associations, and clears lifecycle stages &mdash; keeping the partner database trustworthy.</div>
+      <div class="skill-desc">
+        Runs as a Python script for efficiency. For each contact (processed one-by-one, never batched):
+        scrapes LinkedIn via Apify, compares title and company to HubSpot, applies company equivalences
+        (AWS = Amazon = Amazon Web Services), updates fields, re-maps associations for company movers,
+        and logs company-changed contacts for downstream Clay email enrichment.
+        Fully resumable via progress file after interruptions.
+      </div>
+      <div class="skill-ba">
+        <div class="skill-ba-item before">
+          <span class="skill-ba-label">Before</span>
+          Partner data silently goes stale. People change jobs, emails bounce, associations point to wrong companies.
+        </div>
+        <div class="skill-ba-item after">
+          <span class="skill-ba-label">After</span>
+          Every contact validated against LinkedIn. Stale data detected and fixed. ~$6 for 1,500 contacts.
+        </div>
+      </div>
+      <div class="flow-steps">
+        <div class="flow-step"><span class="step-num">1</span>Pull partner contacts (lifecycle = partner, has high-fit accounts)</div>
+        <div class="flow-step"><span class="step-num">2</span>For each: scrape LinkedIn via Apify, compare title + company</div>
+        <div class="flow-step"><span class="step-num">3</span>Same company, different title &rarr; update. Different company &rarr; full re-mapping workflow</div>
+        <div class="flow-step"><span class="step-num">4</span>Save progress after each contact (resume with <code style="font-family:var(--mono);font-size:12px;">--resume</code>)</div>
+      </div>
+      <div class="integrations">
+        <span class="int-tag">Python 3</span>
+        <span class="int-tag">Apify (LinkedIn)</span>
+        <span class="int-tag">HubSpot REST API</span>
+        <span class="int-tag">Custom Object API</span>
+      </div>
+    </div>
+
+    <!-- ─── 11. Deal Stage Slack Notifier ─── -->
+    <div class="skill-card c1">
+      <div class="skill-header">
+        <div class="skill-name">Deal Stage Slack Notifier</div>
+        <span class="skill-badge badge-auto">Auto</span>
+      </div>
+      <div class="skill-value">Daily pipeline hygiene: classifies every deal by meeting status, flags stale deals, surfaces upcoming meetings, and sends a consolidated Slack thread grouped by deal owner with specific actions.</div>
+      <div class="skill-desc">
+        Fetches deals in a pipeline stage, classifies each into PAST_MEETING (needs SQL reason update),
+        UPCOMING_MEETING, STALE_NO_MEETING, MISSING_SQL, or CUSTOMER_DELAY. Deduplicates so each deal
+        appears once in its most relevant section. Groups by owner with Slack @mentions for accountability.
+        Skips deals where <code style="font-family:var(--mono);font-size:12px;">latest_meeting_date</code> is today (only flags strictly past meetings).
+      </div>
+      <div class="skill-ba">
+        <div class="skill-ba-item before">
+          <span class="skill-ba-label">Before</span>
+          Weekly pipeline review: open each deal, check meeting history, ping owners individually. Hours of work.
+        </div>
+        <div class="skill-ba-item after">
+          <span class="skill-ba-label">After</span>
+          Daily automated Slack thread: every deal classified, owners tagged, actions clear. Zero manual review.
+        </div>
+      </div>
+      <div class="flow-steps">
+        <div class="flow-step"><span class="step-num">1</span>Fetch deals in pipeline stage with <code style="font-family:var(--mono);font-size:12px;">latest_meeting_date</code> and <code style="font-family:var(--mono);font-size:12px;">partnership__sql_reason</code></div>
+        <div class="flow-step"><span class="step-num">2</span>Classify: PAST_MEETING | UPCOMING | STALE | MISSING_SQL | CUSTOMER_DELAY</div>
+        <div class="flow-step"><span class="step-num">3</span>Deduplicate (one deal = one flag, most relevant wins)</div>
+        <div class="flow-step"><span class="step-num">4</span>Group by owner, send parent Slack message + threaded sections</div>
+      </div>
+      <div class="integrations">
+        <span class="int-tag">HubSpot MCP</span>
+        <span class="int-tag">Slack MCP</span>
+      </div>
+    </div>
+
+    <!-- ─── 12. Daily AWS Call Notes ─── -->
+    <div class="skill-card c1">
+      <div class="skill-header">
+        <div class="skill-name">Daily AWS Call Notes</div>
+        <span class="skill-badge badge-auto">Auto</span>
+      </div>
+      <div class="skill-value">Automatically processes today's partner calls: extracts every company mentioned, matches to HubSpot, verifies AM associations via direct API, and writes structured notes &mdash; so nothing from a call is ever lost.</div>
+      <div class="skill-desc">
+        Fetches today's transcripts from Fireflies, extracts company names from attendees, title, and content
+        (with equivalences: AWS/Amazon/Google Cloud/Azure treated as same). Cross-references to HubSpot companies,
+        verifies Account Manager partner contact associations via custom object API (associationTypeId 580),
+        and creates formatted notes with AM name, attendees, duration, summary bullets, and action items.
+        Always reports unmatched companies so nothing falls through the cracks.
+      </div>
+      <div class="skill-ba">
+        <div class="skill-ba-item before">
+          <span class="skill-ba-label">Before</span>
+          Listen to call recordings, identify companies, find them in HubSpot, write up notes manually. 30+ min per call.
+        </div>
+        <div class="skill-ba-item after">
+          <span class="skill-ba-label">After</span>
+          Runs automatically. Notes appear on HubSpot company records. Unmatched companies flagged. 0 manual work.
+        </div>
+      </div>
+      <div class="flow-steps">
+        <div class="flow-step"><span class="step-num">1</span>Fetch today's transcripts from Fireflies</div>
+        <div class="flow-step"><span class="step-num">2</span>Extract company names (attendees, title, content), apply equivalences</div>
+        <div class="flow-step"><span class="step-num">3</span>Match to HubSpot, verify AM partner contact associations via direct API</div>
+        <div class="flow-step"><span class="step-num">4</span>Write structured notes (check for existing today's note first), report summary</div>
+      </div>
+      <div class="integrations">
+        <span class="int-tag">Fireflies MCP</span>
+        <span class="int-tag">HubSpot MCP</span>
+        <span class="int-tag">Custom Object API</span>
+        <span class="int-tag">Keychain</span>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- ──────────────── INFRASTRUCTURE ──────────────── -->
+  <div class="category-header">
+    <span class="category-name">Infrastructure</span><span class="category-count">1 skill</span>
+    <div class="category-desc">The meta-skill that makes all other skills run on schedule</div>
+  </div>
+
+  <div class="skills-grid">
+
+    <!-- ─── 13. Skill Scheduler ─── -->
+    <div class="skill-card c7">
+      <div class="skill-header">
+        <div class="skill-name">Skill Scheduler</div>
+        <span class="skill-badge badge-infra">Infra</span>
+      </div>
+      <div class="skill-value">Generates macOS LaunchAgent plists + launcher scripts for any Claude Code skill, turning one-off commands into scheduled automations that run daily, hourly, or at specific times &mdash; with lock files, weekday checks, and binary caching.</div>
+      <div class="skill-desc">
+        Given a skill name and schedule expression, generates two files: a bash launcher script (with lock file
+        deduplication, weekday enforcement, Claude Code binary resolution + caching, and Terminal.app launch via
+        AppleScript) and a LaunchAgent plist for macOS daemon scheduling. Supports "daily at 9am",
+        "every 4 hours", or specific time formats. All skills run via <code style="font-family:var(--mono);font-size:12px;">claude -p "/<em>skill</em>"</code> with
+        <code style="font-family:var(--mono);font-size:12px;">--allowedTools '*'</code> for headless execution.
+      </div>
+      <div class="skill-ba">
+        <div class="skill-ba-item before">
+          <span class="skill-ba-label">Before</span>
+          Remember to run each skill manually. Miss a day? Pipeline review doesn't happen. Call notes aren't captured.
+        </div>
+        <div class="skill-ba-item after">
+          <span class="skill-ba-label">After</span>
+          <code style="font-family:var(--mono);font-size:12px;">/scheduler deal-notify "daily at 9am"</code> &rarr; runs forever, skips weekends, never overlaps.
+        </div>
+      </div>
+      <div class="flow-steps">
+        <div class="flow-step"><span class="step-num">1</span>Parse skill name + schedule format (daily / every Xh / at HH:MM)</div>
+        <div class="flow-step"><span class="step-num">2</span>Generate launcher script with lock file, weekday check, binary caching</div>
+        <div class="flow-step"><span class="step-num">3</span>Generate LaunchAgent plist (<code style="font-family:var(--mono);font-size:12px;">~/Library/LaunchAgents/</code>)</div>
+        <div class="flow-step"><span class="step-num">4</span>Output <code style="font-family:var(--mono);font-size:12px;">launchctl load</code> command for activation</div>
+      </div>
+      <button class="expand-toggle" onclick="toggle(this)">
+        <span class="arrow">&#x25B6;</span> view pseudocode
+      </button>
+      <div class="expand-content">
+        <div class="code-block">
+<span class="cmt">// Generated launcher script (simplified)</span>
+<span class="kw">#!/bin/bash</span>
+LOCK=<span class="str">"/tmp/claude-skill-{name}.lock"</span>
+
+<span class="cmt"># Skip weekends</span>
+[[ $(<span class="fn">date</span> +%u) <span class="op">-gt</span> <span class="val">5</span> ]] && <span class="kw">exit</span> <span class="val">0</span>
+
+<span class="cmt"># Lock file prevents overlapping runs</span>
+[[ -f <span class="str">"$LOCK"</span> ]] && <span class="kw">exit</span> <span class="val">0</span>
+<span class="fn">touch</span> <span class="str">"$LOCK"</span>
+
+<span class="cmt"># Resolve + cache Claude Code binary</span>
+CLAUDE=$(<span class="fn">which</span> claude || <span class="fn">find</span> /usr/local -name claude)
+<span class="kw">echo</span> <span class="str">"$CLAUDE"</span> > /tmp/.claude-bin-cache
+
+<span class="cmt"># Launch in Terminal.app via AppleScript</span>
+<span class="fn">osascript</span> -e <span class="str">"tell app \"Terminal\" to do script
+  \"$CLAUDE -p '/{name}' --allowedTools '*'\""</span>
+
+<span class="fn">rm</span> <span class="str">"$LOCK"</span>
+</div>
+      </div>
+      <div class="integrations">
+        <span class="int-tag">Bash</span>
+        <span class="int-tag">LaunchAgent</span>
+        <span class="int-tag">AppleScript</span>
+        <span class="int-tag">Terminal.app</span>
+      </div>
+    </div>
+
+  </div>
+
+</section>
+
+<!-- ════════════════════════════════════════════════ WORKFLOW CHAINS ═══════════════════════════════════════════════ -->
+<section class="section" style="background: var(--bg2); border-top: 1px solid var(--border); border-bottom: 1px solid var(--border);">
+  <div class="section-label">Compound Workflows</div>
+  <div class="section-title">Skills that chain together</div>
+  <p class="section-intro">
+    Individual skills are useful. But the real power comes from how they compose &mdash;
+    the output of one skill becomes the input context for another.
+  </p>
+
+  <div class="chains-grid">
+    <div class="chain-card">
+      <div class="chain-title">Partner Onboarding Pipeline</div>
+      <div class="chain-desc">
+        New partner assigned &rarr; account mapper creates associations &rarr; partner intelligence builds their Notion profile &rarr; team lookup maps their org &rarr; AM outreach drafts the first email.
+      </div>
+      <div class="chain-flow">
+        <span class="chain-node">Account Mapper</span>
+        <span class="chain-arrow">&rarr;</span>
+        <span class="chain-node">Partner Intel</span>
+        <span class="chain-arrow">&rarr;</span>
+        <span class="chain-node">Team Lookup</span>
+        <span class="chain-arrow">&rarr;</span>
+        <span class="chain-node">AM Outreach</span>
+      </div>
+    </div>
+
+    <div class="chain-card">
+      <div class="chain-title">Daily Operations Loop</div>
+      <div class="chain-desc">
+        Scheduled daily: call notes capture today's meetings, deal notifier flags pipeline issues, co-sell drafter processes pending tasks, cleanup resolves pending enrichments.
+      </div>
+      <div class="chain-flow">
+        <span class="chain-node">Call Notes</span>
+        <span class="chain-arrow">&rarr;</span>
+        <span class="chain-node">Deal Notify</span>
+        <span class="chain-arrow">&rarr;</span>
+        <span class="chain-node">Co-Sell Drafter</span>
+        <span class="chain-arrow">&rarr;</span>
+        <span class="chain-node">Cleanup Emails</span>
+      </div>
+    </div>
+
+    <div class="chain-card">
+      <div class="chain-title">Data Hygiene Cycle</div>
+      <div class="chain-desc">
+        Partner cleanup validates contacts against LinkedIn &rarr; company movers get re-mapped &rarr; pending email enrichments are resolved by cleanup skill &rarr; intelligence pages refresh.
+      </div>
+      <div class="chain-flow">
+        <span class="chain-node">Contact Cleanup</span>
+        <span class="chain-arrow">&rarr;</span>
+        <span class="chain-node">Account Mapper</span>
+        <span class="chain-arrow">&rarr;</span>
+        <span class="chain-node">Cleanup Emails</span>
+        <span class="chain-arrow">&rarr;</span>
+        <span class="chain-node">Partner Intel</span>
+      </div>
+    </div>
+
+    <div class="chain-card">
+      <div class="chain-title">Prospect Response Workflow</div>
+      <div class="chain-desc">
+        Prospect replies &rarr; bridge intel builds AM context package with social proof &rarr; email responder drafts the reply &rarr; AM outreach updates the partner engagement.
+      </div>
+      <div class="chain-flow">
+        <span class="chain-node">Bridge Intel</span>
+        <span class="chain-arrow">&rarr;</span>
+        <span class="chain-node">Email Responder</span>
+        <span class="chain-arrow">&rarr;</span>
+        <span class="chain-node">AM Outreach</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ════════════════════════════════════════════════ DESIGN PATTERNS ═══════════════════════════════════════════════ -->
+<section class="section">
+  <div class="section-label">Engineering Principles</div>
+  <div class="section-title">Patterns that make it reliable</div>
+  <p class="section-intro">
+    Every skill follows the same core patterns. These aren't theoretical &mdash;
+    each was learned from a production failure or a workflow bottleneck.
+  </p>
+
+  <div class="patterns-grid">
+
+    <div class="pattern-card">
+      <div class="pattern-icon">&#x26A1;</div>
+      <div class="pattern-name">Parallel Execution</div>
+      <div class="pattern-desc">
+        Independent data fetches launch in a single Claude message block. Partner Intelligence fetches from
+        6 sources simultaneously &mdash; HubSpot, Fireflies, Slack, Notion, Web, Custom Objects &mdash; in one round trip.
+        Cuts latency from sequential minutes to a single parallel batch.
+      </div>
+      <div class="pattern-used">USED IN: Partner Intel, Co-Sell Drafter, Bridge Intel</div>
+    </div>
+
+    <div class="pattern-card">
+      <div class="pattern-icon">&#x1F504;</div>
+      <div class="pattern-name">Resumable Processing</div>
+      <div class="pattern-desc">
+        Long-running skills save progress after each item. Partner Contact Cleanup writes cursor position
+        to a JSON file after every contact. If context exhausts or connection drops, <code style="font-family:var(--mono);font-size:12px;">--resume</code>
+        picks up exactly where it left off. No duplicate work, no missed contacts.
+      </div>
+      <div class="pattern-used">USED IN: Contact Cleanup, Cleanup Pending Emails</div>
+    </div>
+
+    <div class="pattern-card">
+      <div class="pattern-icon">&#x1F517;</div>
+      <div class="pattern-name">Dual Token Architecture</div>
+      <div class="pattern-desc">
+        HubSpot's MCP connector doesn't support custom objects. So the system uses two tokens:
+        standard HubSpot token for contacts/deals/tasks via MCP, and a custom object token for
+        Partner Contact (2-40826561) associations via direct REST API. Both stored in macOS Keychain.
+      </div>
+      <div class="pattern-used">USED IN: Partner Intel, Team Lookup, Call Notes, Contact Cleanup</div>
+    </div>
+
+    <div class="pattern-card">
+      <div class="pattern-icon">&#x1F6E1;&#xFE0F;</div>
+      <div class="pattern-name">Never Fabricate, Never Block</div>
+      <div class="pattern-desc">
+        If a data source is empty, the skill marks it as "&mdash;" and continues. Missing Fireflies transcripts
+        don't block partner intelligence from writing the other 5 sections. Missing AM email gets flagged
+        for manual review. Partial intel always beats complete failure.
+      </div>
+      <div class="pattern-used">USED IN: All 13 skills</div>
+    </div>
+
+    <div class="pattern-card">
+      <div class="pattern-icon">&#x1F4E7;</div>
+      <div class="pattern-name">Human-in-the-Loop Drafts</div>
+      <div class="pattern-desc">
+        Email skills create Gmail drafts, never send directly. Co-sell emails, lost deal notifications,
+        AM outreach &mdash; all land in your drafts folder for review. The AI handles research, personalization,
+        and composition. The human handles the send button.
+      </div>
+      <div class="pattern-used">USED IN: Co-Sell Drafter, Deal Lost, AM Outreach, Email Responder</div>
+    </div>
+
+    <div class="pattern-card">
+      <div class="pattern-icon">&#x1F50D;</div>
+      <div class="pattern-name">Company Equivalences</div>
+      <div class="pattern-desc">
+        "Amazon", "AWS", and "Amazon Web Services" are the same company. Same for Google/Google Cloud,
+        Microsoft/Azure. Every skill that matches company names applies equivalence rules to prevent
+        false negatives. Critical for call notes, contact cleanup, and partner intelligence.
+      </div>
+      <div class="pattern-used">USED IN: Call Notes, Contact Cleanup, Partner Intel</div>
+    </div>
+
+    <div class="pattern-card">
+      <div class="pattern-icon">&#x1F4CA;</div>
+      <div class="pattern-name">Deduplication at Every Layer</div>
+      <div class="pattern-desc">
+        Deal Notifier: each deal appears once in its most relevant section. Account Mapper: 3-phase
+        process prevents duplicate associations. Co-Sell Drafter: multi-deal emails combine into one
+        per AM. Contact Cleanup: progress file prevents re-processing. Every output is deduplicated.
+      </div>
+      <div class="pattern-used">USED IN: Deal Notify, Account Mapper, Co-Sell Drafter, Cleanup</div>
+    </div>
+
+    <div class="pattern-card">
+      <div class="pattern-icon">&#x23F0;</div>
+      <div class="pattern-name">Meeting Day Awareness</div>
+      <div class="pattern-desc">
+        Email skills adjust CTA language based on the current day of the week.
+        Monday &rarr; "perhaps Tuesday or Wednesday?" Thursday &rarr; "perhaps Friday or Monday?"
+        A small detail that makes automated emails feel human-written.
+      </div>
+      <div class="pattern-used">USED IN: Co-Sell Drafter, AM Outreach, Deal Lost</div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ════════════════════════════════════════════════ IMPACT ═══════════════════════════════════════════════ -->
+<section class="section" style="background: var(--bg2); border-top: 1px solid var(--border); border-bottom: 1px solid var(--border);">
+  <div class="section-label">Impact</div>
+  <div class="section-title">What this adds up to</div>
+
+  <div class="metrics-grid">
+    <div class="metric-card">
+      <div class="metric-label">Partner Profile Build</div>
+      <div class="metric-value mv-teal">~2 min</div>
+      <div class="metric-detail">was 45+ minutes per profile</div>
+    </div>
+    <div class="metric-card">
+      <div class="metric-label">Co-Sell Email Turnaround</div>
+      <div class="metric-value mv-purple">Task &rarr; Draft</div>
+      <div class="metric-detail">end-to-end, no manual steps</div>
+    </div>
+    <div class="metric-card">
+      <div class="metric-label">Daily Call Notes</div>
+      <div class="metric-value mv-pink">Automated</div>
+      <div class="metric-detail">extracted, matched, verified, written</div>
+    </div>
+    <div class="metric-card">
+      <div class="metric-label">Pipeline Review</div>
+      <div class="metric-value mv-orange">Daily</div>
+      <div class="metric-detail">classified + Slack thread by owner</div>
+    </div>
+    <div class="metric-card">
+      <div class="metric-label">Contact Validation</div>
+      <div class="metric-value mv-green">~$6 / 1,500</div>
+      <div class="metric-detail">LinkedIn-verified, resumable</div>
+    </div>
+    <div class="metric-card">
+      <div class="metric-label">Manual Data Entry</div>
+      <div class="metric-value mv-yellow">Zero</div>
+      <div class="metric-detail">CSV in, associations out</div>
+    </div>
+  </div>
+</section>
+
+<!-- ════════════════════════════════════════════════ FOOTER ═══════════════════════════════════════════════ -->
+<footer>
+  <div class="foot-left">Built with Claude Code &middot; Ashish Saraf &middot; 2025&ndash;2026</div>
+  <div class="foot-right">
+    <a href="https://www.linkedin.com/in/ashish-saraf08/" target="_blank">LinkedIn</a>
+  </div>
+</footer>
+
+<script>
+function toggle(btn) {
+  btn.classList.toggle('open');
+  const content = btn.nextElementSibling;
+  content.classList.toggle('open');
+}
+</script>
+
+</body>
+</html>
